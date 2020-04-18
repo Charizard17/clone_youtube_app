@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useState } from "react";
+import { Paper, TextField } from "@material-ui/core";
 
-import { Paper, TextField } from '@material-ui/core';
+export default ({ onSubmit }) => {
+  const [searchTerm, setSearchTerm] = useState("");
 
-class SearchBar extends React.Component {
-    render(){
-        return(
-            <Paper elevation={6} style={{ padding: '25px'}}>
-                <form onSubmit={this.handleSubmit}>
-                    <TextField fullWidth label="Search..."></TextField>
-                </form>
-            </Paper>
-        )
+  const handleChange = (event) => setSearchTerm(event.target.value);
+
+  const onKeyPress = (event) => {
+    if (event.key === "Enter") {
+      onSubmit(searchTerm);
     }
-}
+  }
 
-export default SearchBar;
+  return (
+    <Paper elevation={6} style={{ padding: "25px" }}>
+      <TextField
+        fullWidth
+        label="Search..."
+        value={searchTerm}
+        onChange={handleChange}
+        onKeyPress={onKeyPress}
+      />
+    </Paper>
+  );
+}
